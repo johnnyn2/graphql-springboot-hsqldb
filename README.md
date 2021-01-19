@@ -1,5 +1,5 @@
-# graphql-springboot-hsqldb
-Create API using GraphQL, Spring Boot and HSQLDB
+# graphql-springboot-mysql
+Create API using GraphQL, Spring Boot and MySQL
 
 
 ## API Collection Point
