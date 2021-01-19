@@ -2,9 +2,10 @@ package com.javafun.graphql.service;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.coxautodev.graphql.tools.GraphQLSubscriptionResolver;
-import com.javafun.graphql.Repository.FilmRepository;
 import com.javafun.graphql.model.Film;
 import com.javafun.graphql.model.FilmMutationInput;
+import com.javafun.graphql.repository.FilmRepository;
+
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

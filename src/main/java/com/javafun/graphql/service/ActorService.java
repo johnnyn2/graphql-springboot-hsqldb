@@ -1,10 +1,11 @@
 package com.javafun.graphql.service;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.javafun.graphql.Repository.ActorRepository;
-import com.javafun.graphql.Repository.FilmRepository;
 import com.javafun.graphql.model.Actor;
 import com.javafun.graphql.model.Film;
+import com.javafun.graphql.repository.ActorRepository;
+import com.javafun.graphql.repository.FilmRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

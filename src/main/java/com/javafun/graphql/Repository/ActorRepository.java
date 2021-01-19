@@ -1,4 +1,4 @@
-package com.javafun.graphql.Repository;
+package com.javafun.graphql.repository;
 
 import java.util.List;
 

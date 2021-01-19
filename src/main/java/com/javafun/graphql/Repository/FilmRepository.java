@@ -1,4 +1,4 @@
-package com.javafun.graphql.Repository;
+package com.javafun.graphql.repository;
 
 import com.javafun.graphql.model.Film;
 import org.springframework.data.jpa.repository.JpaRepository;
