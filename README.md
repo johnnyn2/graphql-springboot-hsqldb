@@ -3,4 +3,4 @@ Create API using GraphQL, Spring Boot and MySQL
 
 
 ## API Collection Point
-https://www.postman.com/collections/866b717b159d97f69217
+https://www.postman.com/collections/6b1e0133a259f1293bbe
