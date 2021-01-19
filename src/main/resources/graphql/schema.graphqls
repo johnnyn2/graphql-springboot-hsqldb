@@ -5,37 +5,37 @@ schema {
 }
 
 type Actor {
-    actorId : ID!
-    firstName :String
-    lastName :String
-    dob:String
-    address:String
-    filmId : Int
-    film:film
+    actorId: ID!
+    firstName: String
+    lastName: String
+    dob: String
+    address: String
+    filmId: Int
+    film: Film
 }
 
-type film {
-    filmId : ID!
-    name : String
-    dateOfLaunch : String
+type Film {
+    filmId: ID!
+    name: String
+    dateOfLaunch: String
 }
 
 type Query{
     getActorById(actorId:Int): Actor
-    getAllActors:[Actor]
-    getAllFilms:[film]
-    getActorsByNameLike(actorName:String):[Actor]
+    getAllActors: [Actor]
+    getAllFilms: [Film]
+    getActorsByNameLike(actorName:String): [Actor]
 }
 input FilmMuatationInput{
-    filmName:String
-    id:Int
+    filmName: String
+    id: Int
 }
 
 type Mutation{
-    updateFilmName(id:Int,name:String):film
-    updateFilmNameByInputObject(input:FilmMuatationInput):film
+    updateFilmName(id: Int,name: String): Film
+    updateFilmNameByInputObject(input: FilmMuatationInput): Film
 }
 
 type Subscription{
-    onFilmUpdate(id:Int):film
+    onFilmUpdate(id: Int): Film
 }
