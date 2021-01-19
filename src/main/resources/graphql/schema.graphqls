@@ -24,7 +24,7 @@ type Query{
     getActorById(actorId:Int): Actor
     getAllActors:[Actor]
     getAllFilms:[film]
-    getActorByNameLike(actorName:String):Actor
+    getActorsByNameLike(actorName:String):[Actor]
 }
 input FilmMuatationInput{
     filmName:String

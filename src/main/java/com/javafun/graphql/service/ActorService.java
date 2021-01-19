@@ -28,8 +28,8 @@ public class ActorService implements GraphQLQueryResolver {
         return null;
     }
 
-    public Actor getActorByNameLike(String name) {
-        return actorRepository.findActorByFirstNameLike(name);
+    public List<Actor> getActorsByNameLike(String name) {
+        return actorRepository.findActorsByFirstNameLike(name);
     }
 
     public List<Actor> getAllActors() {
