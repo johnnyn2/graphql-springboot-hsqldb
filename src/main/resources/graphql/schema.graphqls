@@ -1,38 +1,38 @@
 schema {
-    query: Query,
-    mutation: Mutation,
+    query: Query
+    mutation: Mutation
     subscription: Subscription
 }
 
 type Actor {
-    actorId : ID!,
-    firstName :String,
-    lastName :String,
-    dob:String,
-    address:String,
-    filmId : Int,
+    actorId : ID!
+    firstName :String
+    lastName :String
+    dob:String
+    address:String
+    filmId : Int
     film:film
 }
 
 type film {
-    filmId : ID!,
-    name : String,
+    filmId : ID!
+    name : String
     dateOfLaunch : String
 }
 
 type Query{
-    getActorById(actorId:Int) : Actor
+    getActorById(actorId:Int): Actor
     getAllActors:[Actor]
     getAllFilms:[film]
     getActorByNameLike(actorName:String):Actor
 }
 input FilmMuatationInput{
-    filmName:String,
+    filmName:String
     id:Int
 }
 
 type Mutation{
-    updateFilmName(id:Int,name:String):film,
+    updateFilmName(id:Int,name:String):film
     updateFilmNameByInputObject(input:FilmMuatationInput):film
 }
 

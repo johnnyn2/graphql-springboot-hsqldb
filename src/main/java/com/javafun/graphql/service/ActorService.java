@@ -9,32 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ActorService implements GraphQLQueryResolver
- {
+public class ActorService implements GraphQLQueryResolver {
 
     @Autowired
     private ActorRepository actorRepository;
 
-     @Autowired
-     private FilmRepository filmRepository;
+    @Autowired
+    private FilmRepository filmRepository;
 
-
-    public Actor getActorById(Integer actorId){
-        return actorRepository.findById(actorId).get();
+    public Actor getActorById(Integer actorId) {
+        Optional<Actor> actor = actorRepository.findById(actorId);
+        if (actor.isPresent()) {
+            return actor.get();
+        }
+        return null;
     }
 
-     public Actor getActorByNameLike(String name){
-         return actorRepository.findActorByFirstNameLike(name);
-     }
+    public Actor getActorByNameLike(String name) {
+        return actorRepository.findActorByFirstNameLike(name);
+    }
 
-     public List<Actor> getAllActors(){
-         return actorRepository.findAll();
-     }
+    public List<Actor> getAllActors() {
+        return actorRepository.findAll();
+    }
 
-     public List<Film> getAllFilms(){
+    public List<Film> getAllFilms() {
         return filmRepository.findAll();
-     }
+    }
 
 }

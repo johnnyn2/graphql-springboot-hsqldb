@@ -9,18 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmService implements GraphQLResolver<Actor> {
-
     @Autowired
     private FilmRepository repository;
 
-
     public Film getFilm(Actor actor){
-        return repository.findById(actor.getFilmId()).get();
+        Optional<Film> film = repository.findById(actor.getFilmId());
+        if (film.isPresent()) {
+            return film.get();
+        }
+        return null;
     }
-
-
-
 }
