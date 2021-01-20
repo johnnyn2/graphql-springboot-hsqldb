@@ -10,7 +10,6 @@ type Actor {
     lastName: String
     dob: String
     address: String
-    filmId: Int
     film: Film
 }
 

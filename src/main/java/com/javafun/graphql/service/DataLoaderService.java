@@ -12,9 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 @Service
 public class DataLoaderService {
@@ -43,12 +41,10 @@ public class DataLoaderService {
             Date dateOfLaunch = DataLoaderService.between(new Date(1990,01,01),new Date(2000,01,01));
             Film film = new Film(films.get(actorName),dateOfLaunch);
             filmRepository.save(film);
-            Actor actor = new Actor(names[0],names[1],dateOfBirth,"Mumbai India",film.getFilmId());
+            Actor actor = new Actor(names[0],names[1],dateOfBirth,"Mumbai India",film);
             actorRepository.save(actor);
 
         }
-
-
     }
 
     public static Date between(Date startInclusive, Date endExclusive) {

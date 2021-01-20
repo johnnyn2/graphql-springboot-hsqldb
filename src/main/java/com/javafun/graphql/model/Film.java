@@ -1,7 +1,11 @@
 package com.javafun.graphql.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "FILM")
@@ -14,12 +18,14 @@ public class Film {
     private String name;
     @Column(name = "DATE_OF_LAUNCH")
     private Date dateOfLaunch;
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Actor> actor;
 
     public Film() {
     }
 
     public Film(String name, Date dateOfLaunch) {
-       // this.filmId = filmId;
         this.name = name;
         this.dateOfLaunch = dateOfLaunch;
     }
@@ -46,5 +52,17 @@ public class Film {
 
     public void setDateOfLaunch(Date dateOfLaunch) {
         this.dateOfLaunch = dateOfLaunch;
+    }
+
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
+    }
+
+    public Set<Actor> getActor() {
+        return actor;
+    }
+
+    public void setActor(Set<Actor> actor) {
+        this.actor = actor;
     }
 }

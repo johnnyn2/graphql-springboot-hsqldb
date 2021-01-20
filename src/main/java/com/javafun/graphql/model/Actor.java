@@ -1,13 +1,7 @@
 package com.javafun.graphql.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "ACTOR")
@@ -25,19 +19,19 @@ public class Actor {
     private Date dob;
     @Column(name = "ADDRESS")
     private String address;
-    @Column(name = "FILM_ID")
-    private Integer filmId;
+    @ManyToOne
+    @JoinColumn(name = "FILM_ID", referencedColumnName = "FILM_ID")
+    private Film film;
 
     public Actor() {
     }
 
-    public Actor(String firstName, String lastName, Date dob, String address, Integer filmId) {
-        //this.actorId = actorId;
+    public Actor(String firstName, String lastName, Date dob, String address, Film film) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.address = address;
-        this.filmId = filmId;
+        this.film = film;
     }
 
     public Integer getActorId() {
@@ -80,11 +74,11 @@ public class Actor {
         this.address = address;
     }
 
-    public Integer getFilmId() {
-        return filmId;
+    public Film getFilm() {
+        return film;
     }
 
-    public void setFilmId(Integer filmId) {
-        this.filmId = filmId;
+    public void setFilm(Film film) {
+        this.film = film;
     }
 }
