@@ -16,9 +16,148 @@
         display: block;
         margin: 20px 0px;
     }
+    button:hover {
+        background-color: chartreuse;
+    }
+    div {
+        border-radius: 20px;
+        padding: 20px 20px;
+        background-color: lightsteelblue;
+        border: 4px solid cornflowerblue;
+    }
+    pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+    .string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }
 </style>
 <script type="text/javascript">
-    
+function output(referenceNode, inp) {
+    const e = document.createElement('pre');
+    e.innerHTML = inp;
+    referenceNode.parentNode.insertBefore(e, referenceNode.nextSibling);
+}
+
+function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    const btns = document.querySelectorAll("button");
+    const graphqlAPI = {
+        getAllActors: `query {
+            getAllActors {
+                actorId
+                firstName
+                lastName
+                dob
+                address
+                film {
+                    filmId
+                    name
+                    dateOfLaunch
+                }
+            }
+        }`,
+        getActorById: `query getActorById($actorId: Int) {
+            getActorById(actorId: $actorId) {
+                actorId
+                firstName
+                lastName
+                dob
+                address
+                film {
+                    filmId
+                    name
+                    dateOfLaunch
+                }
+            }
+        }`,
+        getAllFilms: `query {
+            getAllFilms {
+                filmId
+                name
+                dateOfLaunch
+            }
+        }`,
+        getActorsByNameLike: `query getActorsByNameLike ($actorName: String) {
+            getActorsByNameLike(actorName: $actorName) {
+                actorId
+                firstName
+                lastName
+                dob
+                address
+                film {
+                    filmId
+                    name
+                    dateOfLaunch
+                }
+            }
+        }`,
+        updateFilmName: `mutation updateFilmName($id: Int, $name: String) {
+            updateFilmName(id: $id, name: $name) {
+                filmId
+                name
+                dateOfLaunch
+            }
+        }`,
+        updateFilmNameByInputObject: `mutation updateFilmNameByInputObject($input: FilmMutationInput) {
+            updateFilmNameByInputObject(input: $input) {
+                filmId
+                name
+                dateOfLaunch
+            }
+        }`
+    };
+    const getBody = (innerHTML) => {
+        let body = {};
+        if (innerHTML.includes('Query')) {
+            const method = innerHTML.substring(8, innerHTML.length);
+            body['query'] = graphqlAPI[method];
+            if (method === 'getActorById') {
+                body['variables'] = {actorId: 2};
+            } else if (method === 'getActorsByNameLike') {
+                body['variables'] = {actorName: 'ShahRukh'};
+            }
+        } else {
+            const method = innerHTML.substring(11, innerHTML.length);
+            body['query'] = graphqlAPI[method];
+            body['variables'] = method === 'updateFilmName' ? {id: 5, name: '鬼滅之刃'} : {input : {id: 7, filmName: '哈你波波 - 混血王子的背胖'}};
+        }
+        return body;
+    }
+    btns.forEach(btn => {
+        btn.onclick = e => {
+            fetch('/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(getBody(btn.innerHTML))
+            }).then(promise => promise.json()).then(response => {
+                const div = document.createElement('div');
+                const jsonStr = JSON.stringify(response, undefined, 4);
+                output(btn, syntaxHighlight(jsonStr))
+            });
+        }
+    })
+})
 </script>
 <body>
     <button>Query - getAllActors</button>
